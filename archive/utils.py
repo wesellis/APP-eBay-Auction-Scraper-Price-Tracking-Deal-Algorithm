@@ -5,6 +5,9 @@ Utility functions for the eBay scraper
 import time
 import sys
 from datetime import datetime
+from functools import lru_cache
+import threading
+import weakref
 
 class Logger:
     """Simple logging utility"""
@@ -37,10 +40,16 @@ class Logger:
     def data(message):
         print(f"[DATA] {message}")
 
+@lru_cache(maxsize=512)
+def safe_get_text_cached(element_text, default=""):
+    """Cached version of text extraction"""
+    return element_text.strip() if element_text else default
+
 def safe_get_text(element, default=""):
     """Safely extract text from a BeautifulSoup element"""
     if element:
-        return element.get_text(strip=True)
+        text = element.get_text(strip=True)
+        return safe_get_text_cached(text, default) if text else default
     return default
 
 def safe_get_attribute(element, attribute, default=""):
@@ -49,24 +58,24 @@ def safe_get_attribute(element, attribute, default=""):
         return element.get(attribute, default)
     return default
 
-def clean_title(title, max_length=100):
-    """Clean and truncate title text"""
+@lru_cache(maxsize=256)
+def clean_title_cached(title, max_length=100):
+    """Cached title cleaning for performance"""
     if not title:
         return "No title"
     
-    # Remove common unwanted text
-    unwanted = ["Shop on eBay", "New Listing", "SPONSORED"]
-    for unwanted_text in unwanted:
-        title = title.replace(unwanted_text, "")
+    # Fast string operations without regex
+    title = title.replace("Shop on eBay", "").replace("New Listing", "").replace("SPONSORED", "")
+    title = " ".join(title.split())  # Normalize whitespace
     
-    # Clean up whitespace
-    title = " ".join(title.split())
-    
-    # Truncate if too long
     if len(title) > max_length:
         title = title[:max_length-3] + "..."
     
     return title
+
+def clean_title(title, max_length=100):
+    """Clean and truncate title text with caching"""
+    return clean_title_cached(title, max_length)
 
 def upgrade_image_resolution(img_url, upgrades):
     """Upgrade image URL to higher resolution"""

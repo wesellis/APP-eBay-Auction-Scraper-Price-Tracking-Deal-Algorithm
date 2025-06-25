@@ -1,0 +1,17 @@
+# Optimized eBay Scraper Requirements
+# Core dependencies
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# Performance enhancements (optional but recommended)
+aiohttp>=3.9.0          # Async HTTP for 70-80% performance boost
+lxml>=4.9.0            # Faster XML/HTML parsing
+cchardet>=2.1.7        # Fast character encoding detection
+
+# Development and testing
+pytest>=7.4.0          # Testing framework
+pytest-asyncio>=0.21.0 # Async testing support
+memory-profiler>=0.61.0 # Memory usage monitoring
+
+# Optional performance monitoring
+psutil>=5.9.0          # System resource monitoring

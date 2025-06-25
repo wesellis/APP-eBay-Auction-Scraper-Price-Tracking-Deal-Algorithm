@@ -5,6 +5,7 @@ eBay scraping functionality
 import requests
 from bs4 import BeautifulSoup
 import time
+from functools import lru_cache
 from config import *
 from utils import Logger, safe_get_text, safe_get_attribute, clean_title, upgrade_image_resolution, is_gba_related, format_price, retry_on_failure
 
@@ -12,9 +13,18 @@ class EbayScraper:
     """Main scraper class for eBay auctions"""
     
     def __init__(self):
+        # Optimized session with connection pooling
         self.session = requests.Session()
+        adapter = requests.adapters.HTTPAdapter(
+            pool_connections=10,
+            pool_maxsize=20,
+            max_retries=3
+        )
+        self.session.mount('http://', adapter)
+        self.session.mount('https://', adapter)
         self.session.headers.update(HEADERS)
         self.total_found = 0
+        self._cache = {}  # Simple response cache
     
     def build_search_url(self, search_term):
         """Build eBay search URL for auctions ending soon"""
@@ -30,15 +40,25 @@ class EbayScraper:
         return url
     
     def fetch_page(self, url):
-        """Fetch a single page with error handling"""
+        """Optimized page fetching with caching"""
+        # Check cache first
+        cache_key = hash(url)
+        if cache_key in self._cache:
+            Logger.debug("Cache hit for URL")
+            return self._cache[cache_key]
+        
         try:
             Logger.network(f"Fetching: {url[:80]}...")
-            response = self.session.get(url, timeout=REQUEST_TIMEOUT)
+            response = self.session.get(url, timeout=REQUEST_TIMEOUT, stream=True)
             
             Logger.data(f"Response status: {response.status_code}")
             
             if response.status_code == 200:
-                return response.content
+                content = response.content
+                # Cache successful responses (limit cache size)
+                if len(self._cache) < 50:
+                    self._cache[cache_key] = content
+                return content
             elif response.status_code == 429:
                 Logger.warning("Rate limited by eBay - waiting longer...")
                 time.sleep(10)
@@ -124,9 +144,13 @@ class EbayScraper:
             return None
     
     def parse_listings(self, html_content):
-        """Parse all listings from HTML content"""
+        """Optimized listing parsing with better parser selection"""
         try:
-            soup = BeautifulSoup(html_content, 'html.parser')
+            # Use lxml parser for better performance if available
+            try:
+                soup = BeautifulSoup(html_content, 'lxml')
+            except:
+                soup = BeautifulSoup(html_content, 'html.parser')
             
             # Try different selectors for listings
             listings = []
