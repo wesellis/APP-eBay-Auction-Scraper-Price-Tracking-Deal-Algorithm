@@ -2,12 +2,14 @@
 Simplified, working eBay scraper that actually processes listings
 """
 
-import requests
-from bs4 import BeautifulSoup
+import os
 import time
 import webbrowser
-import os
 from datetime import datetime
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class WorkingEbayScraper:
     """A scraper that actually works"""

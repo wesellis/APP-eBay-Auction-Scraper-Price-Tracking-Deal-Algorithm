@@ -3,24 +3,23 @@ High-performance async eBay scraper with intelligent error handling and optimiza
 """
 
 import asyncio
-import aiohttp
-import time
 import random
-from typing import List, Dict, Optional, Set, Tuple
-from bs4 import BeautifulSoup
+import time
 from dataclasses import dataclass
+from typing import Dict, List, Optional, Set, Tuple
+
+import aiohttp
+from bs4 import BeautifulSoup
 
 try:
-    from config_optimized import (
-        SEARCH_TERMS, GBA_KEYWORDS, HEADER_SETS, SELECTOR_CHAINS,
-        PERF, SCRAPING, IMAGE_UPGRADES, DEFAULT_IMAGE
-    )
-    from utils_optimized import (
-        Logger, cache, performance_timer, calculate_similarity,
-        is_gba_related, clean_title, upgrade_image_resolution,
-        format_price, batch_process, HighPerformanceTimer,
-        retry_with_backoff, memory_manager
-    )
+    from config_optimized import (DEFAULT_IMAGE, GBA_KEYWORDS, HEADER_SETS,
+                                  IMAGE_UPGRADES, PERF, SCRAPING, SEARCH_TERMS,
+                                  SELECTOR_CHAINS)
+    from utils_optimized import (HighPerformanceTimer, Logger, batch_process,
+                                 cache, calculate_similarity, clean_title,
+                                 format_price, is_gba_related, memory_manager,
+                                 performance_timer, retry_with_backoff,
+                                 upgrade_image_resolution)
 except ImportError:
     # Fallback imports for standalone operation
     from config import *

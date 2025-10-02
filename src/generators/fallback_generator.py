@@ -2,46 +2,47 @@
 Final solution: GBA Auction Finder with manual search links when eBay blocks
 """
 
-import webbrowser
 import os
+import webbrowser
 from datetime import datetime
+
 
 class GBAAuctionFinder:
     """When eBay blocks scraping, provide direct search links and tips"""
-    
+
     def __init__(self):
         self.gba_search_urls = {
-            'Auctions Ending Soon': 'https://www.ebay.com/sch/i.html?_nkw=gameboy+advance&LH_Auction=1&_sop=1',
-            'Buy It Now - Best Match': 'https://www.ebay.com/sch/i.html?_nkw=gameboy+advance&LH_BIN=1&_sop=12',
-            'GBA SP Auctions': 'https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+sp&LH_Auction=1&_sop=1',
-            'GBA Lots & Bundles': 'https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+lot+bundle&_sop=1',
-            'GBA Games Only': 'https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+game&_sop=1',
-            'Rare/Modded GBA': 'https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+ips+mod+backlit&_sop=1'
+            "Auctions Ending Soon": "https://www.ebay.com/sch/i.html?_nkw=gameboy+advance&LH_Auction=1&_sop=1",
+            "Buy It Now - Best Match": "https://www.ebay.com/sch/i.html?_nkw=gameboy+advance&LH_BIN=1&_sop=12",
+            "GBA SP Auctions": "https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+sp&LH_Auction=1&_sop=1",
+            "GBA Lots & Bundles": "https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+lot+bundle&_sop=1",
+            "GBA Games Only": "https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+game&_sop=1",
+            "Rare/Modded GBA": "https://www.ebay.com/sch/i.html?_nkw=gameboy+advance+ips+mod+backlit&_sop=1",
         }
-        
+
     def generate_interactive_html(self):
         """Generate interactive HTML with direct eBay links and auction tips"""
         timestamp = datetime.now().strftime("%B %d, %Y at %I:%M %p")
-        
+
         # Generate search link cards
         search_cards = ""
-        colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#fd79a8']
-        
+        colors = ["#ff6b6b", "#4ecdc4", "#45b7d1", "#f9ca24", "#6c5ce7", "#fd79a8"]
+
         for i, (category, url) in enumerate(self.gba_search_urls.items()):
             color = colors[i % len(colors)]
-            
+
             icon_map = {
-                'Auctions Ending Soon': '⏰',
-                'Buy It Now - Best Match': '💳',
-                'GBA SP Auctions': '🎮',
-                'GBA Lots & Bundles': '📦',
-                'GBA Games Only': '🕹️',
-                'Rare/Modded GBA': '✨'
+                "Auctions Ending Soon": "⏰",
+                "Buy It Now - Best Match": "💳",
+                "GBA SP Auctions": "🎮",
+                "GBA Lots & Bundles": "📦",
+                "GBA Games Only": "🕹️",
+                "Rare/Modded GBA": "✨",
             }
-            
-            icon = icon_map.get(category, '🔍')
-            
-            search_cards += f'''
+
+            icon = icon_map.get(category, "🔍")
+
+            search_cards += f"""
             <div class="search-card" onclick="window.open('{url}', '_blank')" style="border-left: 5px solid {color};">
                 <div class="card-icon" style="color: {color};">{icon}</div>
                 <div class="card-content">
@@ -50,45 +51,45 @@ class GBAAuctionFinder:
                     <div class="launch-btn" style="background: {color};">Search Now →</div>
                 </div>
             </div>
-            '''
-        
+            """
+
         # Generate auction tips
         tips = [
             {
-                'title': 'Best Times to Find Auctions',
-                'content': 'Most auctions end Sunday evenings 6-10pm EST. Check Saturday-Sunday for auctions ending soon.',
-                'icon': '⏰'
+                "title": "Best Times to Find Auctions",
+                "content": "Most auctions end Sunday evenings 6-10pm EST. Check Saturday-Sunday for auctions ending soon.",
+                "icon": "⏰",
             },
             {
-                'title': 'What to Look For',
-                'content': 'AGS-001 (original) vs AGS-101 (backlit). Modded systems with IPS screens are premium.',
-                'icon': '🔍'
+                "title": "What to Look For",
+                "content": "AGS-001 (original) vs AGS-101 (backlit). Modded systems with IPS screens are premium.",
+                "icon": "🔍",
             },
             {
-                'title': 'Bidding Strategy',
-                'content': 'Set your max bid and wait. Bid in final 30 seconds. Watch for sniping tools.',
-                'icon': '🎯'
+                "title": "Bidding Strategy",
+                "content": "Set your max bid and wait. Bid in final 30 seconds. Watch for sniping tools.",
+                "icon": "🎯",
             },
             {
-                'title': 'Value Spots',
-                'content': 'Lots with games, broken/parts units for modding, rare colors (Tribal, Flame Red).',
-                'icon': '💎'
+                "title": "Value Spots",
+                "content": "Lots with games, broken/parts units for modding, rare colors (Tribal, Flame Red).",
+                "icon": "💎",
             },
             {
-                'title': 'Avoid Pitfalls',
-                'content': 'Check photos for screen scratches, missing battery covers, aftermarket shells.',
-                'icon': '⚠️'
+                "title": "Avoid Pitfalls",
+                "content": "Check photos for screen scratches, missing battery covers, aftermarket shells.",
+                "icon": "⚠️",
             },
             {
-                'title': 'Price Ranges',
-                'content': 'AGS-001: $40-80, AGS-101: $80-150, IPS Modded: $150-300, Rare colors: $100-200+',
-                'icon': '💰'
-            }
+                "title": "Price Ranges",
+                "content": "AGS-001: $40-80, AGS-101: $80-150, IPS Modded: $150-300, Rare colors: $100-200+",
+                "icon": "💰",
+            },
         ]
-        
+
         tips_html = ""
         for tip in tips:
-            tips_html += f'''
+            tips_html += f"""
             <div class="tip-card">
                 <div class="tip-icon">{tip['icon']}</div>
                 <div class="tip-content">
@@ -96,9 +97,9 @@ class GBAAuctionFinder:
                     <p>{tip['content']}</p>
                 </div>
             </div>
-            '''
-        
-        html = f'''
+            """
+
+        html = f"""
 <!DOCTYPE html>
 <html>
 <head>
@@ -337,25 +338,25 @@ class GBAAuctionFinder:
     </script>
 </body>
 </html>
-        '''
-        
+        """
+
         return html
-    
+
     def run(self):
         """Main execution - generate helpful HTML page"""
         print("🎮 GBA Auction Finder - eBay Anti-Bot Protection Detected")
         print("=" * 60)
         print("🛡️ eBay is currently blocking automated scraping")
         print("✅ Generating direct search links and auction tips...")
-        
+
         html = self.generate_interactive_html()
-        
-        filename = 'gba_auctions.html'
-        with open(filename, 'w', encoding='utf-8') as f:
+
+        filename = "gba_auctions.html"
+        with open(filename, "w", encoding="utf-8") as f:
             f.write(html)
-        
+
         print(f"💾 Created: {filename}")
-        
+
         # Open in browser
         try:
             html_path = os.path.abspath(filename)
@@ -363,13 +364,14 @@ class GBAAuctionFinder:
             print(f"🌐 Opening in browser...")
         except:
             pass
-        
+
         print("\n" + "=" * 60)
         print("✅ SUCCESS! Created GBA Auction Finder page")
         print("🔗 Direct eBay search links ready to use")
         print("💡 Includes expert auction hunting tips")
         print("🎯 Click 'Auctions Ending Soon' for time-sensitive deals")
         print("=" * 60)
+
 
 if __name__ == "__main__":
     finder = GBAAuctionFinder()

@@ -2,12 +2,13 @@
 Utility functions for the eBay scraper
 """
 
-import time
 import sys
+import threading
+import time
+import weakref
 from datetime import datetime
 from functools import lru_cache
-import threading
-import weakref
+
 
 class Logger:
     """Simple logging utility"""

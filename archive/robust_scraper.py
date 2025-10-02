@@ -2,13 +2,15 @@
 Ultra-robust eBay scraper with retry logic and better error handling
 """
 
-import requests
-from bs4 import BeautifulSoup
+import os
+import random
 import time
 import webbrowser
-import os
 from datetime import datetime
-import random
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class RobustEbayScraper:
     """A scraper that handles timeouts and errors gracefully"""

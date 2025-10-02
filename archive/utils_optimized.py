@@ -2,15 +2,16 @@
 Optimized utilities with performance improvements and memory management
 """
 
-import time
 import hashlib
-import threading
-from datetime import datetime, timedelta
-from typing import Optional, List, Dict, Any, Generator, Tuple
-from functools import lru_cache, wraps
-from difflib import SequenceMatcher
 import logging
+import threading
+import time
 import weakref
+from datetime import datetime, timedelta
+from difflib import SequenceMatcher
+from functools import lru_cache, wraps
+from typing import Any, Dict, Generator, List, Optional, Tuple
+
 
 class PerformanceLogger:
     """High-performance logger with minimal overhead"""

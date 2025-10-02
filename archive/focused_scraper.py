@@ -2,13 +2,15 @@
 Back to basics - focused on finding GBA auctions ending soon that actually work
 """
 
-import requests
-from bs4 import BeautifulSoup
+import os
+import random
 import time
 import webbrowser
-import os
 from datetime import datetime
-import random
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class WorkingGBAScraperFocused:
     """Simple scraper focused on auctions ending soon"""

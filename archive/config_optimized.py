@@ -2,10 +2,11 @@
 Optimized configuration for eBay scraper with performance improvements
 """
 
+import concurrent.futures
 import os
 from dataclasses import dataclass
-from typing import List, Dict, Tuple
-import concurrent.futures
+from typing import Dict, List, Tuple
+
 
 @dataclass
 class PerformanceConfig:

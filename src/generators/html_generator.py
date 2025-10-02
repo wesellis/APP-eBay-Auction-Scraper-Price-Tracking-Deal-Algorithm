@@ -2,14 +2,15 @@
 HTML generation for the auction results
 """
 
-from utils import get_timestamp, sanitize_html, Logger
+from utils import Logger, get_timestamp, sanitize_html
+
 
 class HTMLGenerator:
     """Generate beautiful HTML pages for auction results"""
-    
+
     def __init__(self):
         self.template = self._load_template()
-    
+
     def _load_template(self):
         """Main HTML template with modern styling"""
         return """<!DOCTYPE html>
@@ -283,16 +284,18 @@ class HTMLGenerator:
     </script>
 </body>
 </html>"""
-    
+
     def generate_card_html(self, auction):
         """Generate HTML for a single auction card"""
         # Sanitize data
-        title = sanitize_html(auction.get('title', 'No Title'))
-        price = sanitize_html(auction.get('price', 'Price not available'))
-        link = auction.get('link', '#')
-        image = auction.get('image', 'https://via.placeholder.com/300x200?text=No+Image')
-        time_left = sanitize_html(auction.get('time_left', 'Ending soon'))
-        
+        title = sanitize_html(auction.get("title", "No Title"))
+        price = sanitize_html(auction.get("price", "Price not available"))
+        link = auction.get("link", "#")
+        image = auction.get(
+            "image", "https://via.placeholder.com/300x200?text=No+Image"
+        )
+        time_left = sanitize_html(auction.get("time_left", "Ending soon"))
+
         # Generate card HTML
         card_html = f"""
         <div class="auction-card" data-link="{link}" role="button" aria-label="View auction: {title}">
@@ -309,9 +312,9 @@ class HTMLGenerator:
                 </div>
             </div>
         </div>"""
-        
+
         return card_html
-    
+
     def generate_no_results_html(self):
         """Generate HTML for when no results are found"""
         return """
@@ -325,12 +328,12 @@ class HTMLGenerator:
             </ul>
             <p>Try running the scraper again in a few minutes!</p>
         </div>"""
-    
+
     def generate_page(self, auction_data):
         """Generate complete HTML page"""
         try:
             Logger.info("Generating HTML page...")
-            
+
             if not auction_data:
                 auction_cards = self.generate_no_results_html()
                 auction_count = 0
@@ -340,27 +343,27 @@ class HTMLGenerator:
                 for auction in auction_data:
                     card_html = self.generate_card_html(auction)
                     cards.append(card_html)
-                
-                auction_cards = '\\n'.join(cards)
+
+                auction_cards = "\\n".join(cards)
                 auction_count = len(auction_data)
-            
+
             # Get timestamp
             timestamp = get_timestamp()
-            
+
             # Fill template
             html_content = self.template.format(
                 auction_cards=auction_cards,
                 timestamp=timestamp,
-                auction_count=auction_count
+                auction_count=auction_count,
             )
-            
+
             Logger.success(f"Generated HTML with {auction_count} auctions")
             return html_content
-            
+
         except Exception as e:
             Logger.error(f"Error generating HTML: {e}")
             return self._generate_error_page(str(e))
-    
+
     def _generate_error_page(self, error_message):
         """Generate error page when HTML generation fails"""
         return f"""
@@ -386,11 +389,11 @@ class HTMLGenerator:
     </div>
 </body>
 </html>"""
-    
+
     def save_to_file(self, html_content, filename):
         """Save HTML content to file"""
         try:
-            with open(filename, 'w', encoding='utf-8') as f:
+            with open(filename, "w", encoding="utf-8") as f:
                 f.write(html_content)
             Logger.success(f"HTML saved as '{filename}'")
             return True

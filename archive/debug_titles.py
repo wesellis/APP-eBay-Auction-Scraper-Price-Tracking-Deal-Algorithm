@@ -5,6 +5,7 @@ Debug version to see exactly what titles eBay is returning
 import requests
 from bs4 import BeautifulSoup
 
+
 def debug_title_extraction():
     print("🔍 DEBUG: Let's see what titles eBay is actually returning...")
     

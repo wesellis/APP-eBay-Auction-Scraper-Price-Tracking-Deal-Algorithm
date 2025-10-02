@@ -2,14 +2,16 @@
 Enhanced categorized eBay GBA scraper with dark mode, equal columns, and total price calculation
 """
 
-import requests
-from bs4 import BeautifulSoup
-import time
-import webbrowser
 import os
-from datetime import datetime
 import random
 import re
+import time
+import webbrowser
+from datetime import datetime
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class EnhancedGBAScraper:
     """Enhanced GBA scraper with dark mode and better pricing"""

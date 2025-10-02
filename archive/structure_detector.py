@@ -2,9 +2,11 @@
 Modern eBay structure detector - finds current selectors that actually work
 """
 
+import re
+
 import requests
 from bs4 import BeautifulSoup
-import re
+
 
 def find_current_ebay_structure():
     print("🕵️ DETECTING CURRENT EBAY HTML STRUCTURE...")

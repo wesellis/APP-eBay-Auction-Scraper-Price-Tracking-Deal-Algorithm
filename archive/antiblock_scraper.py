@@ -2,13 +2,15 @@
 Anti-blocking GBA scraper that handles 503 errors and uses multiple strategies
 """
 
-import requests
-from bs4 import BeautifulSoup
+import os
+import random
 import time
 import webbrowser
-import os
 from datetime import datetime
-import random
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class AntiBlockGBAScraper:
     """GBA scraper with anti-blocking measures"""

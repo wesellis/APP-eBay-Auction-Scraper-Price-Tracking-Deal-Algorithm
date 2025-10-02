@@ -2,9 +2,9 @@
 Optimized main application with performance monitoring and error recovery
 """
 
-import sys
-import os
 import asyncio
+import os
+import sys
 import webbrowser
 from pathlib import Path
 
@@ -14,15 +14,17 @@ sys.path.insert(0, str(current_dir))
 
 # Check for optimized modules first, fall back to original
 try:
+    from config_optimized import DEBUG_MODE, OUTPUT_FILENAME
     from scraper_optimized import scrape_auctions_sync
-    from utils_optimized import Logger, HighPerformanceTimer
-    from config_optimized import OUTPUT_FILENAME, DEBUG_MODE
+    from utils_optimized import HighPerformanceTimer, Logger
     print("✅ Using optimized modules")
 except ImportError:
     try:
         from scraper import EbayScraper
-        from utils import Logger, Timer as HighPerformanceTimer
-        from config import OUTPUT_FILENAME, DEBUG_MODE
+
+        from config import DEBUG_MODE, OUTPUT_FILENAME
+        from utils import Logger
+        from utils import Timer as HighPerformanceTimer
         print("⚠️ Falling back to original modules")
         
         # Create wrapper for compatibility

@@ -2,13 +2,15 @@
 Final working eBay scraper - handles current eBay layout and finds any available auctions
 """
 
-import requests
-from bs4 import BeautifulSoup
+import os
+import random
 import time
 import webbrowser
-import os
 from datetime import datetime
-import random
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class FinalEbayScraper:
     """Final version that adapts to current eBay layout"""

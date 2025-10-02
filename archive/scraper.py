@@ -2,12 +2,17 @@
 eBay scraping functionality
 """
 
-import requests
-from bs4 import BeautifulSoup
 import time
 from functools import lru_cache
+
+import requests
+from bs4 import BeautifulSoup
+
 from config import *
-from utils import Logger, safe_get_text, safe_get_attribute, clean_title, upgrade_image_resolution, is_gba_related, format_price, retry_on_failure
+from utils import (Logger, clean_title, format_price, is_gba_related,
+                   retry_on_failure, safe_get_attribute, safe_get_text,
+                   upgrade_image_resolution)
+
 
 class EbayScraper:
     """Main scraper class for eBay auctions"""

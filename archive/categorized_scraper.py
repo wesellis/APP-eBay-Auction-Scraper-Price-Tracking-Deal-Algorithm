@@ -2,14 +2,16 @@
 Categorized eBay GBA scraper - organizes results by ending soonest, most bid on, and large lots
 """
 
-import requests
-from bs4 import BeautifulSoup
-import time
-import webbrowser
 import os
-from datetime import datetime
 import random
 import re
+import time
+import webbrowser
+from datetime import datetime
+
+import requests
+from bs4 import BeautifulSoup
+
 
 class CategorizedGBAScraper:
     """GBA scraper that organizes results into categories"""

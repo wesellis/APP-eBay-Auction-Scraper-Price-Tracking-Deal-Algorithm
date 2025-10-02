@@ -5,6 +5,7 @@ Simple test to find ANY titles from eBay and show GBA detection
 import requests
 from bs4 import BeautifulSoup
 
+
 def simple_test():
     print("🧪 SIMPLE TEST: Finding ANY titles and testing GBA detection")
     
