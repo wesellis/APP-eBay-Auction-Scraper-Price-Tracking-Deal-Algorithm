@@ -1,9 +1,11 @@
 # eBay Auction Scraper
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
-
 A Python tool for monitoring eBay auctions and tracking prices.
+
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/wesellis/APP-eBay-Auction-Scraper-Price-Tracking-Deal-Algorithm?style=flat-square)](https://github.com/wesellis/APP-eBay-Auction-Scraper-Price-Tracking-Deal-Algorithm/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/wesellis/APP-eBay-Auction-Scraper-Price-Tracking-Deal-Algorithm?style=flat-square)](https://github.com/wesellis/APP-eBay-Auction-Scraper-Price-Tracking-Deal-Algorithm/commits)
 
 ## Overview
 
